@@ -82,40 +82,40 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex="-1"
-            className="menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-[400px] p-2 shadow"
+            className="menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-[300px] md:w-[400px] p-2 shadow"
           >
             <div className="border-l-4 border-[#1875FF] mb-4">
               <li>
-                <h3 className="text-[18px]">
+                <h3 className="md:text-[18px]">
                   displayName: Hafiz Al Asad Bhuiyan
                 </h3>
               </li>
               <li>
-                <h3 className="text-[18px]">Email: hafiz@gmail.com</h3>
+                <h3 className="md:text-[18px]">Email: hafiz@gmail.com</h3>
               </li>
             </div>
             <li>
-              <Link className="flex gap-2 items-center text-[16px]">
+              <Link className="flex gap-2 items-center md:text-[16px]">
                 <span className="hover:border-b-2 border-[#1875FF] hover:font-medium">
                   Model Purchase page
                 </span>
-                <span className="text-[12px]">
+                <span className="text-[10px] md:text-[12px]">
                   <FaExternalLinkAlt />
                 </span>
               </Link>
             </li>
             <li>
-              <Link className="flex gap-2 items-center text-[16px]">
+              <Link className="flex gap-2 items-center md:text-[16px]">
                 <span className="hover:border-b-2 border-[#1875FF] hover:font-medium">
                   My Models page
                 </span>
-                <span className="text-[12px]">
+                <span className="text-[10px] md:text-[12px]">
                   <FaExternalLinkAlt />
                 </span>
               </Link>
             </li>
             <li>
-              <Link className="text-[16px]">
+              <Link className="md:text-[16px]">
                 <span className="hover:border-b-2 border-[#1875FF] hover:font-medium">
                   Logout
                 </span>
