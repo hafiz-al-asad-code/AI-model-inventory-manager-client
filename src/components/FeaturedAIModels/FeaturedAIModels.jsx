@@ -16,7 +16,7 @@ const FeaturedAIModels = () => {
   return (
     <div>
       <h1 className="text-3xl font-semibold my-[30px]">Featured AI Models</h1>
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid md:grid-cols-3 gap-5">
         {models.map((model) => (
           <AIModelCard key={model._id} model={model}></AIModelCard>
         ))}
