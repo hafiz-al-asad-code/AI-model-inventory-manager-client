@@ -5,7 +5,7 @@ const AboutAIModels = () => {
     <div>
       <h1 className="text-3xl font-semibold my-[30px]">About AI Models</h1>
       <h3 className="text-[18px] font-semibold mb-2.5">What are AI Models?</h3>
-      <p className="">
+      <p>
         AI models are intelligent computer programs designed to learn patterns
         from data and make predictions or decisions without being explicitly
         programmed. Most modern AI models are built using neural networks, which
