@@ -2,9 +2,10 @@ import React from "react";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { updateProfile } from "firebase/auth";
 
 const Register = () => {
-  const { signUpUser, signInWithGoogle } = useAuth();
+  const { signUpUser, signInWithGoogle, setUser } = useAuth();
 
   const navigate = useNavigate();
 
@@ -25,10 +26,22 @@ const Register = () => {
       return;
     }
 
+    const updatedUserInfo = {
+      displayName: name,
+      photoURL: photoURL,
+    };
+
     signUpUser(email, password)
       .then((result) => {
         console.log(result.user);
-        navigate("/");
+        updateProfile(result.user, updatedUserInfo)
+          .then(() => {
+            setUser({ ...result.user, updatedUserInfo });
+            navigate("/");
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       })
       .catch((error) => {
         console.log(error);
@@ -51,7 +64,7 @@ const Register = () => {
   return (
     <div className="hero bg-base-200 min-h-screen flex flex-col justify-center gap-6">
       <div>
-        <h1 className="text-4xl font-semibold">
+        <h1 className="text-4xl text-center font-semibold">
           Register for AI Model Inventory Manager
         </h1>
       </div>

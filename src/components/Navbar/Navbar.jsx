@@ -1,8 +1,11 @@
 import React from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { Link, NavLink } from "react-router";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
+  const { user, signOutUser } = useAuth();
+
   const links = (
     <>
       <li>
@@ -25,6 +28,14 @@ const Navbar = () => {
       </li>
     </>
   );
+
+  const handleLogOut = () => {
+    signOutUser()
+      .then(() => {})
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="bg-base-100 shadow-sm">
@@ -64,66 +75,73 @@ const Navbar = () => {
           <ul className="menu-horizontal space-x-5">{links}</ul>
         </div>
         <div className="navbar-end">
-          <Link to="/login" className="btn bg-[#1875FF] text-white shadow-md">
-            Login
-          </Link>
-        </div>
-        {/* profile picture */}
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-              />
+          {user ? (
+            //  profile picture
+            <div className="dropdown dropdown-end">
+              <div
+                tabIndex={0}
+                role="button"
+                className="btn btn-ghost btn-circle avatar"
+              >
+                <div className="w-10 rounded-full">
+                  <img
+                    alt="Tailwind CSS Navbar component"
+                    src={
+                      user
+                        ? user.photoURL
+                        : "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    }
+                  />
+                </div>
+              </div>
+              <ul
+                tabIndex="-1"
+                className="menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-[300px] md:w-[400px] p-2 shadow"
+              >
+                <div className="border-l-4 border-[#1875FF] mb-4">
+                  <li>
+                    <h3 className="md:text-[18px]">
+                      displayName: {user.displayName}
+                    </h3>
+                  </li>
+                  <li>
+                    <h3 className="md:text-[18px]">Email: {user.email}</h3>
+                  </li>
+                </div>
+                <li>
+                  <Link className="flex gap-2 items-center md:text-[16px]">
+                    <span className="hover:border-b-2 border-[#1875FF] hover:font-medium">
+                      Model Purchase page
+                    </span>
+                    <span className="text-[10px] md:text-[12px]">
+                      <FaExternalLinkAlt />
+                    </span>
+                  </Link>
+                </li>
+                <li>
+                  <Link className="flex gap-2 items-center md:text-[16px]">
+                    <span className="hover:border-b-2 border-[#1875FF] hover:font-medium">
+                      My Models page
+                    </span>
+                    <span className="text-[10px] md:text-[12px]">
+                      <FaExternalLinkAlt />
+                    </span>
+                  </Link>
+                </li>
+                <li>
+                  <Link onClick={handleLogOut} className="md:text-[16px]">
+                    <span className="hover:border-b-2 border-[#1875FF] hover:font-medium">
+                      Log Out
+                    </span>
+                  </Link>
+                </li>
+              </ul>
             </div>
-          </div>
-          <ul
-            tabIndex="-1"
-            className="menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-[300px] md:w-[400px] p-2 shadow"
-          >
-            <div className="border-l-4 border-[#1875FF] mb-4">
-              <li>
-                <h3 className="md:text-[18px]">
-                  displayName: Hafiz Al Asad Bhuiyan
-                </h3>
-              </li>
-              <li>
-                <h3 className="md:text-[18px]">Email: hafiz@gmail.com</h3>
-              </li>
-            </div>
-            <li>
-              <Link className="flex gap-2 items-center md:text-[16px]">
-                <span className="hover:border-b-2 border-[#1875FF] hover:font-medium">
-                  Model Purchase page
-                </span>
-                <span className="text-[10px] md:text-[12px]">
-                  <FaExternalLinkAlt />
-                </span>
-              </Link>
-            </li>
-            <li>
-              <Link className="flex gap-2 items-center md:text-[16px]">
-                <span className="hover:border-b-2 border-[#1875FF] hover:font-medium">
-                  My Models page
-                </span>
-                <span className="text-[10px] md:text-[12px]">
-                  <FaExternalLinkAlt />
-                </span>
-              </Link>
-            </li>
-            <li>
-              <Link className="md:text-[16px]">
-                <span className="hover:border-b-2 border-[#1875FF] hover:font-medium">
-                  Logout
-                </span>
-              </Link>
-            </li>
-          </ul>
+          ) : (
+            <Link to="/login" className="btn bg-[#1875FF] text-white shadow-md">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </div>

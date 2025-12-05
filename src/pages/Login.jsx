@@ -41,7 +41,7 @@ const Login = () => {
   return (
     <div className="hero bg-base-200 min-h-screen flex flex-col justify-center gap-6">
       <div>
-        <h1 className="text-4xl font-semibold">
+        <h1 className="text-4xl text-center font-semibold">
           Login to AI Model Inventory Manager
         </h1>
       </div>
