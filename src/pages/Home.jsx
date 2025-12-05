@@ -6,7 +6,7 @@ import Slider from "../components/Slider/Slider";
 
 const Home = () => {
   return (
-    <div>
+    <div className="w-11/12 mx-auto">
       <Slider></Slider>
       <FeaturedAIModels></FeaturedAIModels>
       <AboutAIModels></AboutAIModels>

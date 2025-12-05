@@ -1,6 +1,7 @@
 import React from "react";
 import { AuthContext } from "./AuthContext";
 import {
+  createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithEmailAndPassword,
   signInWithPopup,
@@ -14,12 +15,17 @@ const AuthProvider = ({ children }) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
+  const signUpUser = (email, password) => {
+    return createUserWithEmailAndPassword(auth, email, password);
+  };
+
   const signInWithGoogle = () => {
     return signInWithPopup(auth, googleProvider);
   };
 
   const authInfo = {
     signInUser,
+    signUpUser,
     signInWithGoogle,
   };
 

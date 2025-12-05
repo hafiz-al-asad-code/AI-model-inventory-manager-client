@@ -9,7 +9,6 @@ const Slider = () => {
 
   useEffect(() => {
     axiosInstance.get("/models").then((data) => {
-      console.log(data.data);
       setModels(data.data);
     });
   }, [axiosInstance]);

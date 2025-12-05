@@ -1,21 +1,31 @@
 import React from "react";
-import { AuthContext } from "../context/AuthContext";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
-const Login = () => {
-  const { signInUser, signInWithGoogle } = useAuth();
+const Register = () => {
+  const { signUpUser, signInWithGoogle } = useAuth();
 
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
+    const name = e.target.name.value;
     const email = e.target.email.value;
+    const photoURL = e.target.photo.value;
     const password = e.target.password.value;
-    console.log(email, password);
+    console.log(name, email, photoURL, password);
 
-    signInUser(email, password)
+    const passwordRegEx = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
+
+    if (!passwordRegEx.test(password)) {
+      toast(
+        "Password must be atleast 6 characters long, must have atleast one uppercase letter and atleast one lowercase letter"
+      );
+      return;
+    }
+
+    signUpUser(email, password)
       .then((result) => {
         console.log(result.user);
         navigate("/");
@@ -42,20 +52,37 @@ const Login = () => {
     <div className="hero bg-base-200 min-h-screen flex flex-col justify-center gap-6">
       <div>
         <h1 className="text-4xl font-semibold">
-          Login to AI Model Inventory Manager
+          Register for AI Model Inventory Manager
         </h1>
       </div>
+
       <div className="card bg-base-100 w-full max-w-xl shrink-0 shadow-2xl">
         <div className="card-body">
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleRegister}>
             <fieldset className="fieldset">
+              {/* name */}
+              <label className="label">Name</label>
+              <input
+                type="text"
+                name="name"
+                className="input w-full"
+                placeholder="Enter Your Name"
+              />
               {/* email */}
               <label className="label">Email</label>
               <input
                 type="email"
                 name="email"
                 className="input w-full"
-                placeholder="Email"
+                placeholder="Enter Your Email"
+              />
+              {/* photo URL */}
+              <label className="label">Photo URL</label>
+              <input
+                type="text"
+                name="photo"
+                className="input w-full"
+                placeholder="Photo URL"
               />
               {/* password */}
               <label className="label">Password</label>
@@ -65,10 +92,8 @@ const Login = () => {
                 className="input w-full"
                 placeholder="Password"
               />
-              <div>
-                <a className="link link-hover">Forgot password?</a>
-              </div>
-              <button className="btn btn-neutral mt-4">Login</button>
+
+              <button className="btn btn-neutral mt-4">Register</button>
             </fieldset>
           </form>
 
@@ -104,16 +129,16 @@ const Login = () => {
                 ></path>
               </g>
             </svg>
-            Login with Google
+            Sign In with Google
           </button>
 
           <p className="mt-4">
-            New to our website? Please{" "}
+            Already have an account? Please{" "}
             <Link
-              to="/register"
+              to="/login"
               className="hover:text-[#1875FF] hover:font-semibold hover:underline cursor-pointer"
             >
-              Register
+              Login
             </Link>
           </p>
         </div>
@@ -122,4 +147,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;

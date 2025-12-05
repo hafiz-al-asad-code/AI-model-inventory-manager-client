@@ -64,7 +64,9 @@ const Navbar = () => {
           <ul className="menu-horizontal space-x-5">{links}</ul>
         </div>
         <div className="navbar-end">
-          <a className="btn bg-[#1875FF] text-white shadow-md">Login</a>
+          <Link to="/login" className="btn bg-[#1875FF] text-white shadow-md">
+            Login
+          </Link>
         </div>
         {/* profile picture */}
         <div className="dropdown dropdown-end">
