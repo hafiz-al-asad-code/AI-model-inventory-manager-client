@@ -8,7 +8,6 @@ const FeaturedAIModels = () => {
 
   useEffect(() => {
     axiosInstance.get("/latest-models").then((data) => {
-      console.log("inside the axios instance", data.data);
       setModels(data.data);
     });
   }, [axiosInstance]);
