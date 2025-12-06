@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
-import { Link } from "react-router";
 import AIModelCard from "../components/AIModelCard/AIModelCard";
+import useAuth from "../hooks/useAuth";
+import Loader from "../components/Loader/Loader";
 
 const AllModels = () => {
   const axiosInstance = useAxios();
   const [models, setModels] = useState([]);
+  const { loading } = useAuth();
 
   useEffect(() => {
     axiosInstance.get("/models").then((data) => {
@@ -13,6 +15,10 @@ const AllModels = () => {
       setModels(data.data);
     });
   }, [axiosInstance]);
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="w-11/12 mx-auto my-[30px]">

@@ -8,6 +8,8 @@ import Login from "./pages/Login.jsx";
 import AuthProvider from "./context/AuthProvider.jsx";
 import Register from "./pages/Register.jsx";
 import AllModels from "./pages/AllModels.jsx";
+import AddModel from "./pages/AddModel.jsx";
+import PrivateRoute from "./components/Routes/PrivateRoute.jsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +31,14 @@ const router = createBrowserRouter([
       {
         path: "models",
         Component: AllModels,
+      },
+      {
+        path: "add-model",
+        element: (
+          <PrivateRoute>
+            <AddModel></AddModel>
+          </PrivateRoute>
+        ),
       },
     ],
   },
