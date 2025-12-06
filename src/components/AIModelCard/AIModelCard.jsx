@@ -1,14 +1,35 @@
 import React from "react";
+import { Link } from "react-router";
 
 const AIModelCard = ({ model }) => {
-  const { name, framework, description } = model;
-
   return (
-    <div className="card max-w-full bg-base-100 card-lg shadow-md border border-gray-300">
-      <div className="card-body">
-        <h2 className="card-title">{name}</h2>
-        <h3>{framework}</h3>
-        <p className="text-gray-500">{description}</p>
+    <div className="card max-w-full bg-base-100  shadow-md border border-gray-300">
+      <div className="flex justify-between items-center px-5">
+        <div className="flex items-center">
+          <img className="w-[70px] h-[100px]" src={model.image} alt="" />
+          <div className="card-body">
+            <h2 className="text-xl">
+              <span className="font-semibold">Model:</span> {model.name}
+            </h2>
+            <h3 className="text-[18px]">
+              <span className="font-semibold">Framework: </span>
+              {model.framework}
+            </h3>
+            <h3 className="text-[18px]">
+              <span className="font-semibold">Use Case: </span>
+              {model.useCase}
+            </h3>
+          </div>
+        </div>
+
+        <div>
+          <Link
+            to={`/models/${model._id}`}
+            className="btn bg-[#1875FF] text-white shadow-md"
+          >
+            View Details
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
 import AuthProvider from "./context/AuthProvider.jsx";
 import Register from "./pages/Register.jsx";
+import AllModels from "./pages/AllModels.jsx";
 
 const router = createBrowserRouter([
   {
@@ -24,6 +25,10 @@ const router = createBrowserRouter([
       {
         path: "register",
         Component: Register,
+      },
+      {
+        path: "models",
+        Component: AllModels,
       },
     ],
   },

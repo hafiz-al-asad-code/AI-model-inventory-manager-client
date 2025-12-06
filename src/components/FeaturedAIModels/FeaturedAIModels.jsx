@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AIModelCard from "../AIModelCard/AIModelCard";
+import FeaturedAIModelCard from "../FeaturedAIModelCard/FeaturedAIModelCard";
 import useAxios from "../../hooks/useAxios";
 
 const FeaturedAIModels = () => {
@@ -17,7 +17,10 @@ const FeaturedAIModels = () => {
       <h1 className="text-3xl font-semibold my-[30px]">Featured AI Models</h1>
       <div className="grid md:grid-cols-3 gap-5">
         {models.map((model) => (
-          <AIModelCard key={model._id} model={model}></AIModelCard>
+          <FeaturedAIModelCard
+            key={model._id}
+            model={model}
+          ></FeaturedAIModelCard>
         ))}
       </div>
     </div>

@@ -22,7 +22,10 @@ const Navbar = () => {
         </NavLink>
       </li>
       <li>
-        <NavLink className="hover:border-b-2 border-[#1875FF] hover:font-medium">
+        <NavLink
+          to="/models"
+          className="hover:border-b-2 border-[#1875FF] hover:font-medium"
+        >
           All Models
         </NavLink>
       </li>
