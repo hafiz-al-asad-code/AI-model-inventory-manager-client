@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from "react";
 import FeaturedAIModelCard from "../FeaturedAIModelCard/FeaturedAIModelCard";
 import useAxios from "../../hooks/useAxios";
+import Loader from "../Loader/Loader";
 
 const FeaturedAIModels = () => {
   const axiosInstance = useAxios();
   const [models, setModels] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axiosInstance.get("/latest-models").then((data) => {
       setModels(data.data);
+      setLoading(false);
     });
   }, [axiosInstance]);
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div>

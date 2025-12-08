@@ -10,6 +10,7 @@ import Register from "./pages/Register.jsx";
 import AllModels from "./pages/AllModels.jsx";
 import AddModel from "./pages/AddModel.jsx";
 import PrivateRoute from "./components/Routes/PrivateRoute.jsx";
+import ModelDetails from "./pages/ModelDetails.jsx";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AddModel></AddModel>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "models/:id",
+        element: (
+          <PrivateRoute>
+            <ModelDetails></ModelDetails>
           </PrivateRoute>
         ),
       },

@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
 import AIModelCard from "../components/AIModelCard/AIModelCard";
-import useAuth from "../hooks/useAuth";
 import Loader from "../components/Loader/Loader";
 
 const AllModels = () => {
   const axiosInstance = useAxios();
   const [models, setModels] = useState([]);
-  const { loading } = useAuth();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axiosInstance.get("/models").then((data) => {
       console.log(data.data);
       setModels(data.data);
+      setLoading(false);
     });
   }, [axiosInstance]);
 

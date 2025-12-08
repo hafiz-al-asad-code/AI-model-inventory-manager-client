@@ -2,16 +2,23 @@ import React, { useEffect, useState } from "react";
 import { Carousel } from "react-responsive-carousel";
 import useAxios from "../../hooks/useAxios";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import Loader from "../Loader/Loader";
 
 const Slider = () => {
   const axiosInstance = useAxios();
   const [models, setModels] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axiosInstance.get("/models").then((data) => {
       setModels(data.data);
+      setLoading(false);
     });
   }, [axiosInstance]);
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="mt-[30px]">

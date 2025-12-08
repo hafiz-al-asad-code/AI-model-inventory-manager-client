@@ -16,8 +16,8 @@ const AddModel = () => {
     const useCase = e.target.useCase.value;
     const dataSet = e.target.dataset.value;
     const description = e.target.description.value;
-    const imageURL = e.target.image.value;
-    console.log(name, framework, useCase, dataSet, description, imageURL);
+    const image = e.target.image.value;
+    console.log(name, framework, useCase, dataSet, description, image);
 
     const newModel = {
       name,
@@ -25,7 +25,7 @@ const AddModel = () => {
       useCase,
       dataSet,
       description,
-      imageURL,
+      image,
       createdBy: user.email,
       createdAt: new Date().toISOString(),
       purchased: 0,
@@ -37,7 +37,7 @@ const AddModel = () => {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "Your work has been saved",
+          title: "AI model has been added",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -47,7 +47,7 @@ const AddModel = () => {
   };
 
   return (
-    <div className="hero bg-base-200 min-h-screen flex flex-col justify-center gap-6 my-[30px]">
+    <div className="hero bg-base-200 min-h-screen flex flex-col justify-center gap-6 py-[30px]">
       <div>
         <h1 className="text-4xl text-center font-semibold">Add New Model</h1>
       </div>
