@@ -48,11 +48,15 @@ const ModelDetails = () => {
   };
 
   return (
-    <div className="w-11/12 mx-auto min-h-screen my-[30px]">
+    <div className="w-11/12 mx-auto lg:min-h-screen my-[30px]">
       <h1 className="text-3xl font-semibold mb-[30px]">About The Model</h1>
-      <div className="card bg-base-100 w-[800px] shadow-sm mx-auto">
+      <div className="card bg-base-100 lg:w-[800px] w-auto shadow-xl mx-auto">
         <figure>
-          <img className="w-[800px] h-[472px]" src={model.image} alt="Shoes" />
+          <img
+            className="lg:w-[800px] w-auto lg:h-[472px] h-auto"
+            src={model.image}
+            alt="Shoes"
+          />
         </figure>
         <div className="card-body">
           <h2 className="text-xl">
