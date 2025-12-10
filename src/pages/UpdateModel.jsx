@@ -52,7 +52,7 @@ const UpdateModel = () => {
   };
 
   return (
-    <div className="hero bg-base-200 min-h-screen flex flex-col justify-center gap-6 py-[30px]">
+    <div className="hero bg-base-200 md:min-h-screen flex flex-col justify-center gap-6 py-[30px]">
       <div>
         <h1 className="text-4xl text-center font-semibold">Update Model</h1>
       </div>
