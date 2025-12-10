@@ -12,6 +12,7 @@ import AddModel from "./pages/AddModel.jsx";
 import PrivateRoute from "./components/Routes/PrivateRoute.jsx";
 import ModelDetails from "./pages/ModelDetails.jsx";
 import UpdateModel from "./pages/UpdateModel.jsx";
+import MyModel from "./pages/MyModel.jsx";
 
 const router = createBrowserRouter([
   {
@@ -55,6 +56,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <UpdateModel></UpdateModel>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "myModel",
+        element: (
+          <PrivateRoute>
+            <MyModel></MyModel>
           </PrivateRoute>
         ),
       },
