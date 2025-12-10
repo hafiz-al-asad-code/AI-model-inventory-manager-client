@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import useAuth from "../hooks/useAuth";
 
 const ModelDetails = () => {
@@ -21,12 +21,7 @@ const ModelDetails = () => {
 
     const newPurchase = {
       modelId: model._id,
-      name: model.name,
-      framework: model.framework,
-      useCase: model.useCase,
-      createdBy: model.createdBy,
       purchasedBy: user.email,
-      image: model.image,
     };
 
     axiosInstance.post("/purchased", newPurchase).then((data) => {
@@ -87,7 +82,9 @@ const ModelDetails = () => {
 
             {user.email === model.createdBy && (
               <>
-                <button className="btn btn-warning">Edit</button>
+                <Link to={`/update-model/${id}`}>
+                  <button className="btn btn-warning">Edit</button>
+                </Link>
                 <button className="btn btn-error">Delete</button>
               </>
             )}

@@ -1,15 +1,22 @@
-import React from "react";
-import useAuth from "../hooks/useAuth";
+import React, { useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
+import { useNavigate, useParams } from "react-router";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router";
 
-const AddModel = () => {
-  const { user } = useAuth();
+const UpdateModel = () => {
   const axiosInstance = useAxios();
+  const { id } = useParams();
+  const [model, setModel] = useState({});
   const navigate = useNavigate();
 
-  const handleAddNewModel = (e) => {
+  useEffect(() => {
+    axiosInstance.get(`/models/${id}`).then((data) => {
+      console.log(data.data);
+      setModel(data.data);
+    });
+  }, [axiosInstance, id]);
+
+  const handleUpdate = (e) => {
     e.preventDefault();
     const name = e.target.name.value;
     const framework = e.target.framework.value;
@@ -17,31 +24,29 @@ const AddModel = () => {
     const dataset = e.target.dataset.value;
     const description = e.target.description.value;
     const image = e.target.image.value;
+
     console.log(name, framework, useCase, dataset, description, image);
 
-    const newModel = {
+    const updatedModel = {
       name,
       framework,
       useCase,
       dataset,
       description,
       image,
-      createdBy: user.email,
-      createdAt: new Date().toISOString(),
-      purchased: 0,
     };
 
-    axiosInstance.post("/models", newModel).then((data) => {
-      console.log("after save to mongodb", data.data);
-      if (data.data.insertedId) {
+    axiosInstance.patch(`/update-model/${id}`, updatedModel).then((data) => {
+      console.log(data.data);
+      if (data.data.modifiedCount) {
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "AI model has been added",
+          title: "Model has been updated",
           showConfirmButton: false,
           timer: 1500,
         });
-        navigate("/models");
+        navigate(`/models/${id}`);
       }
     });
   };
@@ -49,11 +54,11 @@ const AddModel = () => {
   return (
     <div className="hero bg-base-200 min-h-screen flex flex-col justify-center gap-6 py-[30px]">
       <div>
-        <h1 className="text-4xl text-center font-semibold">Add New Model</h1>
+        <h1 className="text-4xl text-center font-semibold">Update Model</h1>
       </div>
       <div className="card bg-base-100 w-full max-w-xl shrink-0 shadow-2xl">
         <div className="card-body">
-          <form onSubmit={handleAddNewModel}>
+          <form onSubmit={handleUpdate}>
             <fieldset className="fieldset">
               {/* name */}
               <label className="label">Name</label>
@@ -62,6 +67,7 @@ const AddModel = () => {
                 name="name"
                 className="input w-full"
                 placeholder="AI model name"
+                defaultValue={model.name}
               />
               {/* framework */}
               <label className="label">Framework</label>
@@ -70,6 +76,7 @@ const AddModel = () => {
                 name="framework"
                 className="input w-full"
                 placeholder="Framework"
+                defaultValue={model.framework}
               />
               {/* use case */}
               <label className="label">Use Case</label>
@@ -78,6 +85,7 @@ const AddModel = () => {
                 name="useCase"
                 className="input w-full"
                 placeholder="Use Case"
+                defaultValue={model.useCase}
               />
               {/* dataset */}
               <label className="label">Dataset</label>
@@ -86,6 +94,7 @@ const AddModel = () => {
                 name="dataset"
                 className="input w-full"
                 placeholder="Dataset"
+                defaultValue={model.dataset}
               />
               {/* description */}
               <label className="label">Description</label>
@@ -94,6 +103,7 @@ const AddModel = () => {
                 name="description"
                 className="input w-full h-20"
                 placeholder="Write short description"
+                defaultValue={model.description}
               />
               {/* imageURL */}
               <label className="label">Image URL</label>
@@ -102,19 +112,11 @@ const AddModel = () => {
                 name="image"
                 className="input w-full"
                 placeholder="Image URL"
-              />
-              {/* created by */}
-              <label className="label">Created By</label>
-              <input
-                type="text"
-                name="createdBy"
-                className="input w-full"
-                defaultValue={user.email}
-                readOnly
+                defaultValue={model.image}
               />
 
               <button className="btn bg-[#1875FF] text-white shadow-md mt-4 w-full">
-                Submit
+                Update
               </button>
             </fieldset>
           </form>
@@ -124,4 +126,4 @@ const AddModel = () => {
   );
 };
 
-export default AddModel;
+export default UpdateModel;
