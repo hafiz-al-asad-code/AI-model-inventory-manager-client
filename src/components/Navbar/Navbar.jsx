@@ -115,7 +115,10 @@ const Navbar = () => {
                   </li>
                 </div>
                 <li>
-                  <Link className="flex gap-2 items-center md:text-[16px]">
+                  <Link
+                    to="/myModelPurchase"
+                    className="flex gap-2 items-center md:text-[16px]"
+                  >
                     <span className="hover:border-b-2 border-[#1875FF] hover:font-medium">
                       Model Purchase page
                     </span>
