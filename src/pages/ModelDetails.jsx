@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
-import { Link, useParams } from "react-router";
+import { Link, useNavigate, useParams } from "react-router";
 import useAuth from "../hooks/useAuth";
+import Swal from "sweetalert2";
 
 const ModelDetails = () => {
   const axiosInstance = useAxios();
   const [model, setModel] = useState({});
   const { id } = useParams();
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axiosInstance.get(`/models/${id}`).then((data) => {
@@ -38,6 +40,22 @@ const ModelDetails = () => {
             }));
           }
         });
+      }
+    });
+  };
+
+  const handleModelDelete = () => {
+    axiosInstance.delete(`/models/${id}`).then((data) => {
+      console.log(data.data);
+      if (data.data.success) {
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "The model has been deleted",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate("/models");
       }
     });
   };
@@ -77,7 +95,6 @@ const ModelDetails = () => {
 
           <div className="card-actions justify-center gap-5 mt-4">
             <button
-              // disabled={model.purchased >= 1}
               onClick={handlePurchasedCount}
               className={`btn btn-primary ${
                 model.purchased >= 1 && "pointer-events-none opacity-60"
@@ -91,7 +108,9 @@ const ModelDetails = () => {
                 <Link to={`/update-model/${id}`}>
                   <button className="btn btn-warning">Edit</button>
                 </Link>
-                <button className="btn btn-error">Delete</button>
+                <button onClick={handleModelDelete} className="btn btn-error">
+                  Delete
+                </button>
               </>
             )}
           </div>

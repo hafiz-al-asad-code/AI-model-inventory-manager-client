@@ -35,7 +35,7 @@ const AddModel = () => {
       console.log("after save to mongodb", data.data);
       if (data.data.insertedId) {
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: "AI model has been added",
           showConfirmButton: false,
