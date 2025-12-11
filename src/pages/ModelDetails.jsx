@@ -76,8 +76,14 @@ const ModelDetails = () => {
           </h2>
 
           <div className="card-actions justify-center gap-5 mt-4">
-            <button onClick={handlePurchasedCount} className="btn btn-primary">
-              Purchase Model
+            <button
+              // disabled={model.purchased >= 1}
+              onClick={handlePurchasedCount}
+              className={`btn btn-primary ${
+                model.purchased >= 1 && "pointer-events-none opacity-60"
+              }`}
+            >
+              {model.purchased >= 1 ? "Purchased" : "Purchase Model"}
             </button>
 
             {user.email === model.createdBy && (
