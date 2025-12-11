@@ -3,10 +3,12 @@ import useAxios from "../hooks/useAxios";
 import { Link, useNavigate, useParams } from "react-router";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
+import Loader from "../components/Loader/Loader";
 
 const ModelDetails = () => {
   const axiosInstance = useAxios();
   const [model, setModel] = useState({});
+  const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -15,11 +17,12 @@ const ModelDetails = () => {
     axiosInstance.get(`/models/${id}`).then((data) => {
       console.log(data.data);
       setModel(data.data);
+      setLoading(false);
     });
   }, [axiosInstance, id]);
 
-  const handlePurchasedCount = (e) => {
-    e.preventDefault();
+  const handlePurchasedCount = () => {
+    setLoading(true);
 
     const newPurchase = {
       modelId: model._id,
@@ -38,6 +41,7 @@ const ModelDetails = () => {
               ...currentModel,
               purchased: currentModel.purchased + 1,
             }));
+            setLoading(false);
           }
         });
       }
@@ -45,9 +49,13 @@ const ModelDetails = () => {
   };
 
   const handleModelDelete = () => {
+    setLoading(true);
+
     axiosInstance.delete(`/models/${id}`).then((data) => {
       console.log(data.data);
       if (data.data.success) {
+        setLoading(false);
+
         Swal.fire({
           position: "center",
           icon: "success",
@@ -59,6 +67,10 @@ const ModelDetails = () => {
       }
     });
   };
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="w-11/12 mx-auto lg:min-h-screen my-[30px]">

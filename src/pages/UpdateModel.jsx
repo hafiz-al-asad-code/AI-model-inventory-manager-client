@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
 import { useNavigate, useParams } from "react-router";
 import Swal from "sweetalert2";
+import Loader from "../components/Loader/Loader";
 
 const UpdateModel = () => {
   const axiosInstance = useAxios();
   const { id } = useParams();
   const [model, setModel] = useState({});
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   useEffect(() => {
     axiosInstance.get(`/models/${id}`).then((data) => {
       console.log(data.data);
       setModel(data.data);
+      setLoading(false);
     });
   }, [axiosInstance, id]);
 
@@ -40,7 +43,7 @@ const UpdateModel = () => {
       console.log(data.data);
       if (data.data.modifiedCount) {
         Swal.fire({
-          position: "top-end",
+          position: "center",
           icon: "success",
           title: "Model has been updated",
           showConfirmButton: false,
@@ -50,6 +53,10 @@ const UpdateModel = () => {
       }
     });
   };
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="hero bg-base-200 md:min-h-screen flex flex-col justify-center gap-6 py-[30px]">

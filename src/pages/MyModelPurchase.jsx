@@ -2,16 +2,19 @@ import React, { useEffect, useState } from "react";
 import useAxios from "../hooks/useAxios";
 import useAuth from "../hooks/useAuth";
 import MyModelPurchaseCard from "../components/MyModelPurchaseCard/MyModelPurchaseCard";
+import Loader from "../components/Loader/Loader";
 
 const MyModelPurchase = () => {
   const axiosInstance = useAxios();
   const { user } = useAuth();
   const [purchasedModels, setPurchasedModels] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     axiosInstance.get("/models-purchased-joined").then((data) => {
       console.log(data.data);
       setPurchasedModels(data.data);
+      setLoading(false);
     });
   }, [axiosInstance]);
 
@@ -19,6 +22,10 @@ const MyModelPurchase = () => {
     (purchasedModel) => purchasedModel.purchasedBy === user.email
   );
   console.log("purchased models by user", purchasedModelsByUser);
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="w-11/12 mx-auto my-[30px]">

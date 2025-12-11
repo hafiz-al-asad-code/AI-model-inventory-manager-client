@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import useAxios from "../hooks/useAxios";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router";
+import Loader from "../components/Loader/Loader";
 
 const AddModel = () => {
   const { user } = useAuth();
   const axiosInstance = useAxios();
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleAddNewModel = (e) => {
+    setLoading(true);
     e.preventDefault();
     const name = e.target.name.value;
     const framework = e.target.framework.value;
@@ -34,6 +37,7 @@ const AddModel = () => {
     axiosInstance.post("/models", newModel).then((data) => {
       console.log("after save to mongodb", data.data);
       if (data.data.insertedId) {
+        setLoading(false);
         Swal.fire({
           position: "center",
           icon: "success",
@@ -45,6 +49,10 @@ const AddModel = () => {
       }
     });
   };
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="hero bg-base-200 min-h-screen flex flex-col justify-center gap-6 py-[30px]">
@@ -62,6 +70,7 @@ const AddModel = () => {
                 name="name"
                 className="input w-full"
                 placeholder="AI model name"
+                required
               />
               {/* framework */}
               <label className="label">Framework</label>
@@ -70,6 +79,7 @@ const AddModel = () => {
                 name="framework"
                 className="input w-full"
                 placeholder="Framework"
+                required
               />
               {/* use case */}
               <label className="label">Use Case</label>
@@ -78,6 +88,7 @@ const AddModel = () => {
                 name="useCase"
                 className="input w-full"
                 placeholder="Use Case"
+                required
               />
               {/* dataset */}
               <label className="label">Dataset</label>
@@ -86,6 +97,7 @@ const AddModel = () => {
                 name="dataset"
                 className="input w-full"
                 placeholder="Dataset"
+                required
               />
               {/* description */}
               <label className="label">Description</label>
@@ -94,6 +106,7 @@ const AddModel = () => {
                 name="description"
                 className="input w-full h-20"
                 placeholder="Write short description"
+                required
               />
               {/* imageURL */}
               <label className="label">Image URL</label>
@@ -102,6 +115,7 @@ const AddModel = () => {
                 name="image"
                 className="input w-full"
                 placeholder="Image URL"
+                required
               />
               {/* created by */}
               <label className="label">Created By</label>

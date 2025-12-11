@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { updateProfile } from "firebase/auth";
+import Loader from "../components/Loader/Loader";
 
 const Register = () => {
   const { signUpUser, signInWithGoogle, setUser } = useAuth();
-
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
+    setLoading(true);
     e.preventDefault();
     const name = e.target.name.value;
     const email = e.target.email.value;
@@ -23,6 +25,7 @@ const Register = () => {
       toast(
         "Password must be atleast 6 characters long, must have atleast one uppercase letter and atleast one lowercase letter"
       );
+      setLoading(false);
       return;
     }
 
@@ -37,14 +40,17 @@ const Register = () => {
         updateProfile(result.user, updatedUserInfo)
           .then(() => {
             setUser({ ...result.user, updatedUserInfo });
+            setLoading(false);
             navigate("/");
           })
           .catch((error) => {
             console.log(error);
+            setLoading(false);
           });
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
         toast(error.code);
       });
   };
@@ -60,6 +66,10 @@ const Register = () => {
         toast(error.code);
       });
   };
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="hero bg-base-200 min-h-screen flex flex-col justify-center gap-6">
@@ -80,6 +90,7 @@ const Register = () => {
                 name="name"
                 className="input w-full"
                 placeholder="Enter Your Name"
+                required
               />
               {/* email */}
               <label className="label">Email</label>
@@ -88,6 +99,7 @@ const Register = () => {
                 name="email"
                 className="input w-full"
                 placeholder="Enter Your Email"
+                required
               />
               {/* photo URL */}
               <label className="label">Photo URL</label>
@@ -96,6 +108,7 @@ const Register = () => {
                 name="photo"
                 className="input w-full"
                 placeholder="Photo URL"
+                required
               />
               {/* password */}
               <label className="label">Password</label>
@@ -104,6 +117,7 @@ const Register = () => {
                 name="password"
                 className="input w-full"
                 placeholder="Password"
+                required
               />
 
               <button className="btn btn-neutral mt-4">Register</button>

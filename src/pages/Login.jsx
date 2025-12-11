@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import useAuth from "../hooks/useAuth";
 import { Link, useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import Loader from "../components/Loader/Loader";
 
 const Login = () => {
   const { signInUser, signInWithGoogle } = useAuth();
-
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
+    setLoading(true);
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
@@ -18,10 +20,12 @@ const Login = () => {
     signInUser(email, password)
       .then((result) => {
         console.log(result.user);
+        setLoading(false);
         navigate("/");
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
         toast(error.code);
       });
   };
@@ -37,6 +41,10 @@ const Login = () => {
         toast(error.code);
       });
   };
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="hero bg-base-200 min-h-screen flex flex-col justify-center gap-6">
@@ -56,6 +64,7 @@ const Login = () => {
                 name="email"
                 className="input w-full"
                 placeholder="Email"
+                required
               />
               {/* password */}
               <label className="label">Password</label>
@@ -64,6 +73,7 @@ const Login = () => {
                 name="password"
                 className="input w-full"
                 placeholder="Password"
+                required
               />
               <div>
                 <a className="link link-hover">Forgot password?</a>
