@@ -8,6 +8,7 @@ import Loader from "../components/Loader/Loader";
 const ModelDetails = () => {
   const axiosInstance = useAxios();
   const [model, setModel] = useState({});
+  const [purchasedModel, setPurchasedModel] = useState({});
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
   const { user } = useAuth();
@@ -17,9 +18,14 @@ const ModelDetails = () => {
     axiosInstance.get(`/models/${id}`).then((data) => {
       console.log(data.data);
       setModel(data.data);
+    });
+
+    axiosInstance.get(`/purchased/${id}?email=${user.email}`).then((data) => {
+      console.log("purchased data", data.data);
+      setPurchasedModel(data.data);
       setLoading(false);
     });
-  }, [axiosInstance, id]);
+  }, [axiosInstance, id, user.email, loading]);
 
   const handlePurchasedCount = () => {
     setLoading(true);
@@ -109,10 +115,13 @@ const ModelDetails = () => {
             <button
               onClick={handlePurchasedCount}
               className={`btn btn-primary ${
-                model.purchased >= 1 && "pointer-events-none opacity-60"
+                purchasedModel?.purchasedBy === user.email &&
+                "pointer-events-none opacity-60"
               }`}
             >
-              {model.purchased >= 1 ? "Purchased" : "Purchase Model"}
+              {purchasedModel?.purchasedBy === user.email
+                ? "Purchased"
+                : "Purchase Model"}
             </button>
 
             {user.email === model.createdBy && (
