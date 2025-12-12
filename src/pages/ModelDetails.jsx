@@ -15,17 +15,25 @@ const ModelDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axiosInstance.get(`/models/${id}`).then((data) => {
-      console.log(data.data);
-      setModel(data.data);
-    });
+    axiosInstance
+      .get(`/models/${id}`)
+      .then((data) => {
+        console.log(data.data);
+        setModel(data.data);
+      })
+      .catch((error) => {
+        console.log("from axios catch", error);
+        if (error.status === 404) {
+          navigate("*");
+        }
+      });
 
     axiosInstance.get(`/purchased/${id}?email=${user.email}`).then((data) => {
       console.log("purchased data", data.data);
       setPurchasedModel(data.data);
       setLoading(false);
     });
-  }, [axiosInstance, id, user.email, loading]);
+  }, [axiosInstance, id, user.email, loading, navigate]);
 
   const handlePurchasedCount = () => {
     setLoading(true);

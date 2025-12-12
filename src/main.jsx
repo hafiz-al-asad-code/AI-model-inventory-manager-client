@@ -14,6 +14,7 @@ import ModelDetails from "./pages/ModelDetails.jsx";
 import UpdateModel from "./pages/UpdateModel.jsx";
 import MyModel from "./pages/MyModel.jsx";
 import MyModelPurchase from "./pages/MyModelPurchase.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,10 @@ const router = createBrowserRouter([
         ),
       },
     ],
+  },
+  {
+    path: "*",
+    Component: ErrorPage,
   },
 ]);
 
