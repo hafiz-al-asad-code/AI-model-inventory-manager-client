@@ -2,6 +2,8 @@ import React from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../hooks/useAuth";
+import { CiLight } from "react-icons/ci";
+import ThemeToggle from "../ThemeToggle/ThemeToggle";
 
 const Navbar = () => {
   const { user, signOutUser } = useAuth();
@@ -80,7 +82,9 @@ const Navbar = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu-horizontal space-x-5">{links}</ul>
         </div>
-        <div className="navbar-end">
+        <div className="navbar-end flex items-center gap-7">
+          <ThemeToggle></ThemeToggle>
+
           {user ? (
             //  profile picture
             <div className="dropdown dropdown-end">
