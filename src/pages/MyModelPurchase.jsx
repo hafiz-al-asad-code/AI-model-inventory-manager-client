@@ -12,7 +12,6 @@ const MyModelPurchase = () => {
 
   useEffect(() => {
     axiosInstance.get("/models-purchased-joined").then((data) => {
-      console.log(data.data);
       setPurchasedModels(data.data);
       setLoading(false);
     });
@@ -21,7 +20,6 @@ const MyModelPurchase = () => {
   const purchasedModelsByUser = purchasedModels.filter(
     (purchasedModel) => purchasedModel.purchasedBy === user.email
   );
-  console.log("purchased models by user", purchasedModelsByUser);
 
   if (loading) {
     return <Loader></Loader>;

@@ -13,7 +13,6 @@ const UpdateModel = () => {
 
   useEffect(() => {
     axiosInstance.get(`/models/${id}`).then((data) => {
-      console.log(data.data);
       setModel(data.data);
       setLoading(false);
     });
@@ -28,8 +27,6 @@ const UpdateModel = () => {
     const description = e.target.description.value;
     const image = e.target.image.value;
 
-    console.log(name, framework, useCase, dataset, description, image);
-
     const updatedModel = {
       name,
       framework,
@@ -40,7 +37,6 @@ const UpdateModel = () => {
     };
 
     axiosInstance.patch(`/update-model/${id}`, updatedModel).then((data) => {
-      console.log(data.data);
       if (data.data.modifiedCount) {
         Swal.fire({
           position: "center",

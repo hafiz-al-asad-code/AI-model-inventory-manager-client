@@ -22,14 +22,12 @@ const AllModels = () => {
 
   useEffect(() => {
     axiosInstance.get(`/models?search=${debouncedSearch}`).then((data) => {
-      console.log(data.data);
       setModels(data.data);
       setLoading(false);
     });
   }, [axiosInstance, debouncedSearch]);
 
   const handleSelectFramework = (e) => {
-    console.log("value of select", e.target.value);
     const value = e.target.value;
     setFramework(value);
   };

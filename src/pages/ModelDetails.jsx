@@ -16,12 +16,10 @@ const ModelDetails = () => {
 
   useEffect(() => {
     axiosInstance.get(`/models/${id}`).then((data) => {
-      console.log(data.data);
       setModel(data.data);
     });
 
     axiosInstance.get(`/purchased/${id}?email=${user.email}`).then((data) => {
-      console.log("purchased data", data.data);
       setPurchasedModel(data.data);
       setLoading(false);
     });
@@ -36,12 +34,8 @@ const ModelDetails = () => {
     };
 
     axiosInstance.post("/purchased", newPurchase).then((data) => {
-      console.log(data.data);
-
       if (data.data.insertedId) {
         axiosInstance.patch(`/models/${id}`).then((data) => {
-          console.log(data.data);
-
           if (data.data.modifiedCount) {
             setModel((currentModel) => ({
               ...currentModel,
@@ -51,7 +45,6 @@ const ModelDetails = () => {
             axiosInstance
               .get(`/purchased/${id}?email=${user.email}`)
               .then((data) => {
-                console.log("purchased data", data.data);
                 setPurchasedModel(data.data);
                 setLoading(false);
               });
@@ -65,7 +58,6 @@ const ModelDetails = () => {
     setLoading(true);
 
     axiosInstance.delete(`/models/${id}`).then((data) => {
-      console.log(data.data);
       if (
         data.data.for_models.deletedCount ||
         data.data.for_purchased.deletedCount

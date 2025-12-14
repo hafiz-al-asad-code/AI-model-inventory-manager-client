@@ -39,9 +39,7 @@ const Navbar = () => {
   const handleLogOut = () => {
     signOutUser()
       .then(() => {})
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch(() => {});
   };
 
   return (

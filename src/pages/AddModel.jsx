@@ -20,7 +20,6 @@ const AddModel = () => {
     const dataset = e.target.dataset.value;
     const description = e.target.description.value;
     const image = e.target.image.value;
-    console.log(name, framework, useCase, dataset, description, image);
 
     const newModel = {
       name,
@@ -35,7 +34,6 @@ const AddModel = () => {
     };
 
     axiosInstance.post("/models", newModel).then((data) => {
-      console.log("after save to mongodb", data.data);
       if (data.data.insertedId) {
         setLoading(false);
         Swal.fire({
@@ -55,7 +53,7 @@ const AddModel = () => {
   }
 
   return (
-    <div className="hero bg-base-200 min-h-screen flex flex-col justify-center gap-6 py-[30px]">
+    <div className="hero bg-base-200 md:min-h-screen flex flex-col justify-center gap-6 py-[30px]">
       <div>
         <h1 className="text-4xl text-center font-semibold">Add New Model</h1>
       </div>

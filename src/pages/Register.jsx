@@ -17,7 +17,6 @@ const Register = () => {
     const email = e.target.email.value;
     const photoURL = e.target.photo.value;
     const password = e.target.password.value;
-    console.log(name, email, photoURL, password);
 
     const passwordRegEx = /^(?=.*[A-Z])(?=.*[a-z]).{6,}$/;
 
@@ -36,20 +35,17 @@ const Register = () => {
 
     signUpUser(email, password)
       .then((result) => {
-        console.log(result.user);
         updateProfile(result.user, updatedUserInfo)
           .then(() => {
             setUser({ ...result.user, updatedUserInfo });
             setLoading(false);
             navigate("/");
           })
-          .catch((error) => {
-            console.log(error);
+          .catch(() => {
             setLoading(false);
           });
       })
       .catch((error) => {
-        console.log(error);
         setLoading(false);
         toast(error.code);
       });
@@ -57,12 +53,10 @@ const Register = () => {
 
   const handleGoogleSignIn = () => {
     signInWithGoogle()
-      .then((result) => {
-        console.log(result.user);
+      .then(() => {
         navigate("/");
       })
       .catch((error) => {
-        console.log(error);
         toast(error.code);
       });
   };

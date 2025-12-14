@@ -12,7 +12,6 @@ const MyModel = () => {
 
   useEffect(() => {
     axiosInstance.get("/models").then((data) => {
-      console.log(data.data);
       setModels(data.data);
       setLoading(false);
     });
@@ -21,7 +20,6 @@ const MyModel = () => {
   const modelCreatedByUser = models.filter(
     (model) => model.createdBy === user.email
   );
-  console.log("model created by user", modelCreatedByUser);
 
   if (loading) {
     return <Loader></Loader>;
