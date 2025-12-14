@@ -2,7 +2,6 @@ import React from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../hooks/useAuth";
-import { CiLight } from "react-icons/ci";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 
 const Navbar = () => {
