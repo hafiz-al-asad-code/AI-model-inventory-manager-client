@@ -1,11 +1,12 @@
 import React from "react";
 import { FaExternalLinkAlt } from "react-icons/fa";
-import { Link, NavLink } from "react-router";
+import { Link, NavLink, useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
 import ThemeToggle from "../ThemeToggle/ThemeToggle";
 
 const Navbar = () => {
   const { user, signOutUser } = useAuth();
+  const navigate = useNavigate();
 
   const links = (
     <>
@@ -38,7 +39,9 @@ const Navbar = () => {
 
   const handleLogOut = () => {
     signOutUser()
-      .then(() => {})
+      .then(() => {
+        navigate("/login");
+      })
       .catch(() => {});
   };
 
