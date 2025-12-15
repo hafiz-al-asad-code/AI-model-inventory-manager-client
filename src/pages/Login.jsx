@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import useAuth from "../hooks/useAuth";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import Loader from "../components/Loader/Loader";
 
@@ -9,6 +9,7 @@ const Login = () => {
   const { signInUser, signInWithGoogle } = useAuth();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogin = (e) => {
     setLoading(true);
@@ -19,7 +20,7 @@ const Login = () => {
     signInUser(email, password)
       .then(() => {
         setLoading(false);
-        navigate("/");
+        navigate(location.state || "/");
       })
       .catch((error) => {
         setLoading(false);

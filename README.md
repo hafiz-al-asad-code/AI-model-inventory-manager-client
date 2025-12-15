@@ -1,16 +1,19 @@
-# React + Vite
+# Webiste Name: AI Model Inventory Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+---
 
-Currently, two official plugins are available:
+# Live Link:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+# Here are the features of the website:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- ### A web-based platform to catalog, organize, and manage AI models with relevant metadata in one centralized inventory.
 
-## Expanding the ESLint configuration
+- ### Designed to help beginner students learn React.js, CRUD operations, and MongoDB through a practical, real-world project.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- ### Simulates how AI practitioners manage, store, and track machine learning models in research and deployment environments.
+
+- ### Enables users to add, view, update, and delete AI model information, promoting hands-on understanding of data management.
+
+- ### Bridges web development and artificial intelligence concepts, making learning both educational and aligned with modern tech trends.
